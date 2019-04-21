@@ -1,0 +1,5 @@
+https://jekyllrb.com/showcase/
+https://help.github.com/en/articles/customizing-css-and-html-in-your-jekyll-theme
+https://help.github.com/en/articles/configuring-jekyll
+https://github.com/pages-themes/hacker
+https://pages-themes.github.io/hacker/
