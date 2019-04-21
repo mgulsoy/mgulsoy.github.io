@@ -5,4 +5,10 @@ title: Mert Gülsoy / Kişisel blog / A tech blog
 <div>
 	<h1>Merhaba!</h1>
 	<p>Bu sitede çeşitli teknik konular hakkında blog yazıları bulacaksınız.</p>
+	<ul>{% for post in site.posts %}
+	    <li>
+	      <a href="{{ post.url }}">{{ post.title }}</a>
+	    </li>
+	  {% endfor %}
+	</ul>
 </div>
