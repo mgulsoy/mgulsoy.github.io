@@ -16,6 +16,10 @@ def foo():
 
 Syntax highlight için [lexer için dil listesi](https://github.com/jneen/rouge/wiki/List-of-supported-languages-and-lexers "Diller") inline link.
 
+Ayrıca [markdown için](https://mycyberuniverse.com/syntax-highlighting-jekyll.html "link") tıklayın.
+
+## Örnek javascript mesela
+
 ```javascript
 var rows = prompt("How many rows for your multiplication table?");
 var cols = prompt("How many columns for your multiplication table?");
@@ -40,5 +44,44 @@ function createTable(rows, cols) {
     }
     output = output + "</table>";
     document.write(output);
+}
+```
+
+## Örnek Csharp
+
+```csharp
+var names = new List<string>() { "John", "Tom", "Peter" };
+foreach (string name in names)
+{
+    if (name == "Tom")
+    {
+        continue;
+    }
+    Console.WriteLine(name);
+}
+```
+
+## örnek C
+```c
+#include <stdio.h>
+
+int main()
+{
+    int a;
+    long b;
+    long long c;
+
+    double e;
+    long double f;
+
+
+    printf("Size of int = %ld bytes \n", sizeof(a));
+    printf("Size of long = %ld bytes\n", sizeof(b));
+    printf("Size of long long = %ld bytes\n", sizeof(c));
+
+    printf("Size of double = %ld bytes\n", sizeof(e));
+    printf("Size of long double = %ld bytes\n", sizeof(f));
+
+    return 0;
 }
 ```
