@@ -46,7 +46,7 @@ Or, if you prefer, __use two underscores instead__.
 This is an [example link](http://example.com/ "With a Title").
 
 ## Resim
-![alt text](/path/to/img.jpg "Title")
+![alt text](/assets/splash.png "Title")
 
 ## Code
 I strongly recommend against using any `<blink>` tags.
