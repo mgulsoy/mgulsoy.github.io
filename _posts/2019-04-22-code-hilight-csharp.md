@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Mert Gülsoy, C Sharp syntax highlight"
+title: "Mert Gülsoy, Code syntax highlight"
 date: 2019-04-22
 ---
 
