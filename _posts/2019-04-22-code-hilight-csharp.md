@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Mert Gülsoy, Code syntax highlight"
+title: "Code syntax highlight"
 date: 2019-04-22
 ---
 
