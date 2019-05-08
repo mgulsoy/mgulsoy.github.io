@@ -14,6 +14,8 @@ def foo():
     print("deneme bir iki")
 {% endhighlight %}
 
+Syntax highlight için [lexer için dil listesi](https://github.com/jneen/rouge/wiki/List-of-supported-languages-and-lexers "Diller") inline link.
+
 ```javascript
 var rows = prompt("How many rows for your multiplication table?");
 var cols = prompt("How many columns for your multiplication table?");
