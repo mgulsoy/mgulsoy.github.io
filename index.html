@@ -16,7 +16,7 @@ title: Mert Gülsoy / Kişisel blog
 <hr />
 <div>
 	<h1>Etiketler</h1>	
-	{% for etk in site.tags %}
-		<a href="#" class="btn btn-info">{{ etk.name }}</a>
+	{% for tag in site.tags %}		
+		<a href="{{ tag[0] | slugify }}" class="post-tag">{{ tag[0] }}</a>
 	{% endfor %}
 </div>
