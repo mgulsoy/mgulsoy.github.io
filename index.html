@@ -1,14 +1,19 @@
 ---
 layout: default
-title: Mert Gülsoy / Kişisel blog / A tech blog
+title: Mert Gülsoy / Kişisel blog 
 ---
 <div>
-	<h1>Merhaba!</h1>
-	<p>Bu sitede çeşitli teknik konular hakkında blog yazıları bulacaksınız.</p>
+	<h1>Teknik Şeyler</h1>
+	<h3>Son yazılar :=</h3>
 	<ul>{% for post in site.posts %}
 	    <li>
 	      <a href="{{ post.url }}">{{ post.title }}</a>
 	    </li>
 	  {% endfor %}
 	</ul>
+</div>
+<hr />
+<div>
+	<h1>Etiketler</h1>	
+	
 </div>
