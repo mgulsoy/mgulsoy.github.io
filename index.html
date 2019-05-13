@@ -8,6 +8,7 @@ title: Mert Gülsoy / Kişisel blog
 	<ul>{% for post in site.posts %}
 	    <li>
 	      <a href="{{ post.url }}">{{ post.title }}</a>
+		    <small> {{ post.excerpt }} </small>
 	    </li>
 	  {% endfor %}
 	</ul>
@@ -15,5 +16,7 @@ title: Mert Gülsoy / Kişisel blog
 <hr />
 <div>
 	<h1>Etiketler</h1>	
-	
+	{% for tag in site.tags %}
+		<a href="#" class="btn btn-info">{{ tag.name }}</a>
+	{% endfor %}
 </div>
