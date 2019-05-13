@@ -8,7 +8,7 @@ title: Mert Gülsoy / Kişisel blog
 	<ul>{% for post in site.posts %}
 	    <li>
 	      <a href="{{ post.url }}">{{ post.title }}</a>
-		    <small> {{ post.excerpt }} ...</small>
+		    <small> {{ post.excerpt }} </small>
 	    </li>
 	  {% endfor %}
 	</ul>
@@ -16,6 +16,7 @@ title: Mert Gülsoy / Kişisel blog
 <hr />
 <div>
 	<!-- https://www.jokecamp.com/blog/listing-jekyll-posts-by-tag/ -->
+	<!-- https://hyunyoung2.github.io/2016/12/17/Category_And_Tags_In_Jekyll/ -->
 	<h1>Etiketler</h1>	
 	{% for tag in site.tags %}		
 		<a href="{{ tag[0] | slugify }}" class="post-tag">{{ tag[0] }}</a>
