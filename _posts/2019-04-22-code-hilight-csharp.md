@@ -2,6 +2,7 @@
 layout: post
 title: "Code syntax highlight"
 date: 2019-04-22
+tags: [test, örnek]
 ---
 
 Lorem ipsum bılı bılı tık tık
