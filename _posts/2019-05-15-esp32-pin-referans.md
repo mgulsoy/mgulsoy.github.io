@@ -11,7 +11,7 @@ Esp32 modülü (ESP32-Wroom-32) 48 adet pine sahiptir. Geliştirme boardlarını
 kendiiçinde kullanılır. Örneğin modüldeki SPI bus esp32 çipinin flash belleğine de bağlıdır.
 
 Aşağıdaki resimde WROOM-32 modülünün pin bağlantıları görülebilir:
-![esp-wroom-32 pinleri](/assets/splash.png "ESP32-WROOM32 Pinleri")
+![esp-wroom-32 pinleri](/assets/pinout_wroom_pinout.png "ESP32-WROOM32 Pinleri")
 
 ## ESP32 Donanımları
   * 18 ADC, analog digital çevirici
@@ -23,3 +23,10 @@ Aşağıdaki resimde WROOM-32 modülünün pin bağlantıları görülebilir:
   * 2 I2S
   * 10 kapasitif dokunma girişi
   
+Modül üzerinde ADC ve DAC pinleri sabit olarak belirlenmiştir. Yani sadece belirli pinlerde kullanılabilirler. Fakat UART, PWM, SPI, I2C gibi donanımlar, modülün "pin multiplex" özelliğinden faydalanılarak başka uygun olan, istenilen pinlerde kullanılabilirler.
+
+GPIO pinlerinin kullanımları ile ilgili olarak aşağıdaki tabloya bakılabilir. Modül üzerinde bulunan bazı pinler genel olarak kullanılabilirken bazı pinlerin kullanımı esnasında o pinin başka bir amaçla kullanılıyor olmasına dikkat edilmelidir. Yani pin zaten başka bir fonksiyon için kullanılıyor olabilir.
+
+| GPIO | Fiziksel Pin No | Input | Output | Not |
+| 0 | 25 | pull-up | dikkat | Varsayılan olarak **boot** esnasında bir PWM sinyali çıkışı verir. Bu sinyal BOOT vektörünün başlangıcını belirler |
+| 1 | 35 | uart0_tdx | dikkat | Varsayılan seri port tx pinidir. **boot** esnasında debug amaçlı çıkış üretir.
