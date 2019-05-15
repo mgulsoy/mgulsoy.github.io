@@ -29,6 +29,9 @@ Modül üzerinde ADC ve DAC pinleri sabit olarak belirlenmiştir. Yani sadece be
 
 GPIO pinlerinin kullanımları ile ilgili olarak aşağıdaki tabloya bakılabilir. Modül üzerinde bulunan bazı pinler genel olarak kullanılabilirken bazı pinlerin kullanımı esnasında o pinin başka bir amaçla kullanılıyor olmasına dikkat edilmelidir. Yani pin zaten başka bir fonksiyon için kullanılıyor olabilir.
 
-| GPIO | Fiziksel Pin No | Input | Output | Not |
+| GPIO | Fiziksel Pin No | Input Kullanımı | Output Kullanımı | Not |
 | 0 | 25 | pull-up | dikkat | Varsayılan olarak **boot** esnasında bir PWM sinyali çıkışı verir. Bu sinyal BOOT vektörünün başlangıcını belirler |
-| 1 | 35 | uart0_tdx | dikkat | Varsayılan seri port tx pinidir. **boot** esnasında debug amaçlı çıkış üretir.
+| 1 | 35 | uart0_txd | dikkat | Varsayılan seri port tx pinidir. **boot** esnasında debug amaçlı çıkış üretir.|
+| 2 | 24 | OK | OK | Bazı boardlarda bu pine mavi bir led bağlıdır. |
+| 3 | 34 | dikkat | uart0_rxd | Varsayılan seri port rx pinidir. **boot** esnasında _HIGH_ konumdadır. |
+| 4 | 26 | OK | OK | Çok amaçla kullanılabilir. |
