@@ -5,6 +5,8 @@ date: 2019-05-15
 tags: [esp32]
 ---
 
+Esp32 modülü oldukça yetenekli bir modül. Fiyatına ve sunduğu özelliklere bakılırsa pek de rakibi yokmuş gibi. Bu modülün pin özelliklerine bir bakalım...
+
 ## ESP32 Modülleri İçin Hangi Pinler Ne İçin Kullanılır?
 
 Esp32 modülü (ESP32-Wroom-32) 48 adet pine sahiptir. Geliştirme boardlarının çoğunda bu pinlerin hepsine yer verilmez ve bazı pinler modülün 
