@@ -37,6 +37,6 @@ GPIO pinlerinin kullanımları ile ilgili olarak aşağıdaki tabloya bakılabil
 | 3 | 34 | dikkat | uart0_rxd | Varsayılan seri port rx pinidir. **boot** esnasında _HIGH_ konumdadır. |
 | 4 | 26 | OK | OK | Çok amaçla kullanılabilir. |
 | 5 | 29 | pull-up | dikkat | Strapping pinidir. **boot** esnasında  PWM sinyali olabilir. |
-| 6 | 20 | **HAYIR** | **HAYIR** | Esp32 çipinin kullandığı SPI flash'a bağlıdır. Kullanılmaz. (SPI/CLK) |
-| 7 | 21 | **HAYIR** | **HAYIR** | Esp32 çipinin kullandığı SPI flash'a bağlıdır. Kullanılmaz. (SPI/SDO) |
-| 8 | 22 | <span style="color:red">HAYIR</span> | **HAYIR** | Esp32 çipinin kullandığı SPI flash'a bağlıdır. Kullanılmaz. (SPI/SDI) |
+| 6 | 20 | <span style="color:red">HAYIR</span> | <span style="color:red">HAYIR</span> | Esp32 çipinin kullandığı SPI flash'a bağlıdır. Kullanılmaz. (SPI/CLK) |
+| 7 | 21 | <span style="color:red">HAYIR</span> | <span style="color:red">HAYIR</span> | Esp32 çipinin kullandığı SPI flash'a bağlıdır. Kullanılmaz. (SPI/SDO) |
+| 8 | 22 | <span style="color:red">HAYIR</span> | <span style="color:red">HAYIR</span> | Esp32 çipinin kullandığı SPI flash'a bağlıdır. Kullanılmaz. (SPI/SDI) |
