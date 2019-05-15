@@ -32,6 +32,10 @@ GPIO pinlerinin kullanımları ile ilgili olarak aşağıdaki tabloya bakılabil
 | GPIO | Fiziksel Pin No | Input Kullanımı | Output Kullanımı | Not |
 | 0 | 25 | pull-up | dikkat | Varsayılan olarak **boot** esnasında bir PWM sinyali çıkışı verir. Bu sinyal BOOT vektörünün başlangıcını belirler |
 | 1 | 35 | uart0_txd | dikkat | Varsayılan seri port tx pinidir. **boot** esnasında debug amaçlı çıkış üretir.|
-| 2 | 24 | OK | OK | Bazı boardlarda bu pine mavi bir led bağlıdır. |
+| 2 | 24 | pull-down | OK | Bazı boardlarda bu pine mavi bir led bağlıdır. |
 | 3 | 34 | dikkat | uart0_rxd | Varsayılan seri port rx pinidir. **boot** esnasında _HIGH_ konumdadır. |
 | 4 | 26 | OK | OK | Çok amaçla kullanılabilir. |
+| 5 | 29 | pull-up | dikkat | Strapping pinidir. **boot** esnasında  PWM sinyali olabilir. |
+| 6 | 20 | **HAYIR** | **HAYIR** | Esp32 çipinin kullandığı SPI flash'a bağlıdır. Kullanılmaz. (SPI/CLK) |
+| 7 | 21 | **HAYIR** | **HAYIR** | Esp32 çipinin kullandığı SPI flash'a bağlıdır. Kullanılmaz. (SPI/SDO) |
+| 8 | 22 | <span style="color:red">HAYIR</span> | **HAYIR** | Esp32 çipinin kullandığı SPI flash'a bağlıdır. Kullanılmaz. (SPI/SDI) |
