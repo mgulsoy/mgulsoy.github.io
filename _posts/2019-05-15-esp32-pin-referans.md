@@ -64,3 +64,8 @@ GPIO pinlerinin kullanımları ile ilgili olarak aşağıdaki tabloya bakılabil
 | 36 | <span style="color:lime">OK</span> | <span style="color:red">HAYIR</span> | ADC, Sadece Input (Giriş) |
 | 39 | <span style="color:lime">OK</span> | <span style="color:red">HAYIR</span> | ADC, Sadece Input (Giriş) |
 
+## GPIO Üzerinden Çekilebilecek Akım
+
+Datasheet'e göre bir GPIO pini maksimum mutlak 40mA akım sağlar (Source), 28mA akım kontrol edebilir (Sink).
+
+
