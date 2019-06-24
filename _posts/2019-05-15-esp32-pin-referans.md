@@ -30,7 +30,7 @@ Modül üzerinde ADC ve DAC pinleri sabit olarak belirlenmiştir. Yani sadece be
 GPIO pinlerinin kullanımları ile ilgili olarak aşağıdaki tabloya bakılabilir. Modül üzerinde bulunan bazı pinler genel olarak kullanılabilirken bazı pinlerin kullanımı esnasında o pinin başka bir amaçla kullanılıyor olmasına dikkat edilmelidir. Yani pin zaten başka bir fonksiyon için kullanılıyor olabilir.
 
 | GPIO | Input Kullanımı | Output Kullanımı | Not |
-|--------|--------|--------|--------|--------|
+|--------|--------|--------|--------|
 | 0 | pull-up | <span style="color:yellow">dikkat</span> | Varsayılan olarak **boot** esnasında bir PWM sinyali çıkışı verir. Bu sinyal BOOT vektörünün başlangıcını belirler |
 | 1 | uart0_txd | <span style="color:yellow">dikkat</span> | Varsayılan seri port tx pinidir. **boot** esnasında debug amaçlı çıkış üretir.|
 | 2 | pull-down | <span style="color:lime">OK</span> | Bazı boardlarda bu pine mavi bir led bağlıdır. |
@@ -59,8 +59,8 @@ GPIO pinlerinin kullanımları ile ilgili olarak aşağıdaki tabloya bakılabil
 | 27 | <span style="color:lime">OK</span> | <span style="color:lime">OK</span> | ADC |
 | 32 | <span style="color:lime">OK</span> | <span style="color:lime">OK</span> | ADC |
 | 33 | <span style="color:lime">OK</span> | <span style="color:lime">OK</span> | ADC |
-| 34 | <span style="color:lime">OK</span> | <span style="color:red">HAYIR</span> | ADC, Sadece Inout (Giriş) |
-| 35 | <span style="color:lime">OK</span> | <span style="color:red">HAYIR</span> | ADC Sadece Inout (Giriş) |
-| 36 | <span style="color:lime">OK</span> | <span style="color:red">HAYIR</span> | ADC Sadece Inout (Giriş) |
-| 39 | <span style="color:lime">OK</span> | <span style="color:red">HAYIR</span> | ADC Sadece Inout (Giriş) |
+| 34 | <span style="color:lime">OK</span> | <span style="color:red">HAYIR</span> | ADC, Sadece Input (Giriş) |
+| 35 | <span style="color:lime">OK</span> | <span style="color:red">HAYIR</span> | ADC, Sadece Input (Giriş) |
+| 36 | <span style="color:lime">OK</span> | <span style="color:red">HAYIR</span> | ADC, Sadece Input (Giriş) |
+| 39 | <span style="color:lime">OK</span> | <span style="color:red">HAYIR</span> | ADC, Sadece Input (Giriş) |
 
