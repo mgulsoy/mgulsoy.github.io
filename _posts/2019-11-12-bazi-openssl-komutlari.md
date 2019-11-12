@@ -121,7 +121,7 @@ Bu komut ile `-connect www.paypal.com:443` parametresinde belirtilen bir *https*
 openssl s_client -connect www.paypal.com:443
 ```
 
-## Bir DER dosyasını PEM dosyasına Çevirme:
+## Bir DER dosyasını PEM dosyasına çevirme:
 
 Bir **DER** dosyasını (.crt .cer .der) bir **PEM** dosyasına çevirme işlemi yapar.
 
@@ -129,43 +129,48 @@ Bir **DER** dosyasını (.crt .cer .der) bir **PEM** dosyasına çevirme işlemi
 openssl x509 -inform der -in server.cer -out server.pem
 ```
 
-
-Convert a PEM file to DER
+## Bir PEM dosyasını DER dosyasına çevirme:
 
 ```sh
 openssl x509 -outform der -in server.pem -out server.der
 ```
 
+## İçinde private-key ve sertifikaların bulunduğu bir PKCS#12 file (.pfx .p12) dosyasını PEM formatına çevirme
 
-Convert a PKCS#12 file (.pfx .p12) containing a private key and certificates to PEM
+`-in server.pfx` parametresi ile `server.pfx` dosyasından *pkcs12* formatında veri okunara `server.pem` dosyasına yazılır.
 
 ```sh
 openssl pkcs12 -in server.pfx -out server.pem -nodes
 ```
 
+## Bir PEM formatında sertifika ve private-key'i PKCS#12 (.pfx .p12) formatına çevirme:
 
-Convert a PEM certificate file and a private key to PKCS#12 (.pfx .p12)
+Bu komut ile **PEM** formatında ayrı ayrı dosyalarda depolanan `server.crt` sertifikası ve `server.key` private-key `server.pfx` dosyasına **pkcs12** formatında konur. Bu işlem yapılırken bu sertifikanın kök sertifikasının `CACert.crt` olduğu belirtilir.
 
 ```sh
 openssl pkcs12 -export -out server.pfx -inkey server.key -in server.crt -certfile CACert.crt
 ```
 
 
-Generate a Diffie Hellman key
+## Bir Diffie Hellman anahtarı oluşturma:
 
 ```sh
 openssl dhparam -out dhparam.pem 2048
 ```
 
 
-Encrypt files with rsautl
+## rsautl aracı ile bir dosya şifreleme:
+
+Bir `plaintext.txt` dosyası `encrypted.txt` dosyasına `pubkey.pem` public-key kullanılarak şifrelenir. Bunu çözmek için, şifreleme işlemi için kullanılan public-key ile eşleşen private-key kullanılır.
 
 ```sh
 openssl rsautl -encrypt -in plaintext.txt -out encrypted.txt -pubin -inkey pubkey.pem
 ```
 
 
-Decrypt files with rsautl
+## rsautl aracı ile bir dosya şifre çözme:
+
+Önceden şifrelenen `encrypted.txt` dosyası `privkey.pem` private-key kullanılarak şifresi çözülür ve `plaintext.txt` dosyasına kaydedilir.
 
 ```sh
 openssl rsautl -decrypt -in encrypted.txt -out plaintext.txt -inkey privkey.pem
