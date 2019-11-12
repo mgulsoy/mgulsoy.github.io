@@ -1,0 +1,28 @@
+---
+layout: post
+title: "Openssl ile kullanılabilecek bazı komutlar"
+date: 2019-11-12
+tags: [openssl,ssl]
+---
+
+Bu yazıda pratik bazı openssl komutları bulunmaktadır. Bu komutlar aracılığı ile OpenSSL kullanıp aracın sağladığı işlemler yapılabilir.
+Burada yer alan komutlar OpenSSL aracını linux, macos gibi sistemlerin komut satırı (terminal) aracılığı ile kullanmayı sağlar. Windows 
+işletim sistemi ile de kullanılabilir. Fakat bunun için windows işletim sistemine bu aracın kurulması gereklidir!
+
+###Komutlar
+
+##Bir private-key (gizli anahtar) oluşturma işlemi:
+
+Bu komut ile 4096 bitlik bir *rsa* gizli anahtar oluşturulur ve `server.key` adlı dosyaya kaydedilir.
+
+```sh
+openssl genrsa -out server.key 4096
+```
+
+##Kendinden imzalı bir sertifika oluşturma:
+
+Bu komut ile 4096 bitlik *rsa* sertifikası oluşturulur. Bu sertifika 365 gün geçerlidir. Private-key 
+
+```sh
+openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:4096 -keyout server.key -out server.crt
+```
