@@ -2,6 +2,10 @@
 layout: default
 title: Mert Gülsoy / Kişisel blog 
 ---
+{% if site.tags != "" %}
+  {% include collecttags.html %}
+{% endif %}
+
 <div>
 	<h1>Teknik Şeyler</h1>
 	<h3>Son yazılar :=</h3>
