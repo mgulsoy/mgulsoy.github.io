@@ -2,7 +2,6 @@
 layout: post
 title: "Mert Gülsoy, Sitenin ilk blog postu"
 date: 2019-04-22
-tags: [test, loremipsum]
 ---
 
 Test sayfası
