@@ -2,7 +2,7 @@
 layout: post
 title: "Openssl ile kullanılabilecek bazı komutlar"
 date: 2019-11-12
-tags: [openssl, ssl]
+tags: [ssl]
 ---
 
 Bu yazıda pratik bazı openssl komutları bulunmaktadır. Bu komutlar aracılığı ile OpenSSL kullanıp aracın sağladığı işlemler yapılabilir. Burada yer alan komutlar OpenSSL aracını linux, macos gibi sistemlerin komut satırı (terminal) aracılığı ile kullanmayı sağlar. Windows işletim sistemi ile de kullanılabilir. Fakat bunun için windows işletim sistemine bu aracın kurulması gereklidir!
