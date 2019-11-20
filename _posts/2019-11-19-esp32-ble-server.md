@@ -98,14 +98,14 @@ BLE sistemi sürekli bağlantı yapısında tasarlanmamıştır. Örneğin *Clie
 * Bluetoot LE gerçek zamanlı sistemler ile kullanılması önerilmeyen bir sistemdir!
 * Fakat Bluetooth LE sistemi HID *(Human Interface Device)* olarak tasarlanmış cihazlara destek verir. Bu cihazlar gerçek zamanlı olarak düşünülebilir. Örneğin bir Bluetooth Mouse böyle bir cihazdır. Bu durumda bağlanan *Client* sisteme yüksek hız ihtiyacı bildirilebilir.
 * Windows işletim sistemleri bir *Server* cihazına bağlantı kurduğunda şunlar gerçekleşir:
-** Eğer cihaz için tanımlanan bir sürücü var ise bu sürücü bağlantı gereksinimlerine göre hızı ve gerekli diğer parametreleri ayarlar. 
-** Eğer cihaz *Gatt Peripheral Preferred Connection Parameter characteristic* özelliğini tanımlıyorsa bu tanıma bir sonraki bağlantıda uyulur. Fakat hemen uyulması isteniyorsa *Server* tarafından *L2Cap Connection Parameter Update Request* gönderilir. 
-*** esp32 platformunda bu işlemin yapılabilmesi için [bu fonksiyon](https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/bluetooth/esp_gap_ble.html#_CPPv434esp_ble_gap_set_prefer_conn_params13esp_bd_addr_t8uint16_t8uint16_t8uint16_t8uint16_t "esp-idf api") kullanılır. Fakat biz bir üst kütüphane kullanacağız ve bu kütüphane bu işlemi arka planda gerçekleştirecek.
+  * Eğer cihaz için tanımlanan bir sürücü var ise bu sürücü bağlantı gereksinimlerine göre hızı ve gerekli diğer parametreleri ayarlar. 
+  * Eğer cihaz *Gatt Peripheral Preferred Connection Parameter characteristic* özelliğini tanımlıyorsa bu tanıma bir sonraki bağlantıda uyulur. Fakat hemen uyulması isteniyorsa *Server* tarafından *L2Cap Connection Parameter Update Request* gönderilir. 
+    * esp32 platformunda bu işlemin yapılabilmesi için [bu fonksiyon](https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/bluetooth/esp_gap_ble.html#_CPPv434esp_ble_gap_set_prefer_conn_params13esp_bd_addr_t8uint16_t8uint16_t8uint16_t8uint16_t "esp-idf api") kullanılır. Fakat biz bir üst kütüphane kullanacağız ve bu kütüphane bu işlemi arka planda gerçekleştirecek.
 * Bağlantı kalitesini etkileyen parametreler şunlardır:
-** **minimum preferred connection interval** : Tercih edilen en kısa bağlantı aralığı süresi. 1,25ms 'lik adımlar ile hesaplanır. Yani değer 10 ise süre **10 x 1,25ms = 20ms** olur.
-** **maximum preferred connection interval** : Tercih edilen en uzun bağlantı aralığı süresi.  1,25ms 'lik adımlar ile hesaplanır. Yani değer 20 ise süre **20 x 1,25ms = 40ms** olur.
-** **preferred slave latency** : Tercih edilen gecikme, yani kaybolduğunda tolere edilebilecek paket sayısı.
-** **preferred supervision timeout** : Tercih edilen zaman aşımı süresi. Bu süre dolduğunda cihaz bağlantısı kesilebilir. 6,25ms 'lik adımlar ile hesaplanır. Yani değer 100 ise süre **100 x 6,25ms = 625ms** olur.
+  * **minimum preferred connection interval** : Tercih edilen en kısa bağlantı aralığı süresi. 1,25ms 'lik adımlar ile hesaplanır. Yani değer 10 ise süre **10 x 1,25ms = 20ms** olur.
+  * **maximum preferred connection interval** : Tercih edilen en uzun bağlantı aralığı süresi.  1,25ms 'lik adımlar ile hesaplanır. Yani değer 20 ise süre **20 x 1,25ms = 40ms** olur.
+  * **preferred slave latency** : Tercih edilen gecikme, yani kaybolduğunda tolere edilebilecek paket sayısı.
+  * **preferred supervision timeout** : Tercih edilen zaman aşımı süresi. Bu süre dolduğunda cihaz bağlantısı kesilebilir. 6,25ms 'lik adımlar ile hesaplanır. Yani değer 100 ise süre **100 x 6,25ms = 625ms** olur.
 
 
 
