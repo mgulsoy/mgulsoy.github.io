@@ -76,12 +76,14 @@ Bizim tasarlayacağımız sistemde aşağıdaki Bluetooth yapıları olacak (sta
 |Sensor Service|Standart değil! Kendimiz tanımladık|a62206b9-8cd9-4f02-ae53-1755928a54e1|
 
 ### Karakteristik Özellikler (GATT Characteristic)
-|Hizmet|Karakteristik Özellik|Numarası|Çalışma Yöntemi
+
+|Hizmet|Karakteristik Özellik|Numarası|Çalışma Yöntemi|
 |----|----|----|----|
 |Battery Service|Battery Level|0x2A19|READ|
 |Sensor Service|Sensor State|a62206b9-8cd9-4f02-ae53-1755928a54e2|READ,NOTIFY|
 
 ### Tanımlayıcılar (GATT Descriptor)
+
 |Karakteristik Özellik|Adı|Numarası|
 |----|----|----|
 |Battery Level|Characteristic User Description|0x2901|
