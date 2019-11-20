@@ -80,13 +80,14 @@ Bizim tasarlayacağımız sistemde aşağıdaki Bluetooth yapıları olacak (sta
 |Hizmet|Karakteristik Özellik|Numarası|Çalışma Yöntemi|
 |----|----|----|----|
 |Battery Service|Battery Level|0x2A19|READ|
-|Sensor Service|Sensor State|a62206b9-8cd9-4f02-ae53-1755928a54e2|READ,NOTIFY|
+|Sensor Service|Sensor Value|a62206b9-8cd9-4f02-ae53-1755928a54e2|READ,NOTIFY|
 
 ### Tanımlayıcılar (GATT Descriptor)
 
-|Karakteristik Özellik|Adı|Numarası|
-|----|----|----|
-|Battery Level|Characteristic User Description|0x2901|
+|Karakteristik Özellik|Adı|Numarası|Tanım|
+|----|----|----|----|
+|Battery Level|Characteristic User Description|0x2901|Seviye türü tanımı|
+|Sensor Value|Client Characteristic Configuration|0x2902|NOTIFY yöntemini belirten tanım|
 
 **NOT:** Bazı tanımlayıcılar esp32 platformu tarafından otomatik olarak oluşturulur!
 
@@ -117,7 +118,7 @@ BLE sistemi sürekli bağlantı yapısında tasarlanmamıştır. Örneğin *Clie
 
 Kullanacağımız kütüphaneleri ekliyoruz:
 
-```
+```c
 #include <BLEDevice.h>
 #include <BLEUtils.h>
 #include <BLEServer.h>
@@ -127,7 +128,7 @@ Kullanacağımız kütüphaneleri ekliyoruz:
 
 Program dosyamıza gerekli sabit tanımlarını yapıyoruz:
 
-```
+```c
 #define BatteryServiceUUID             BLEUUID((uint16_t)0x180F)
 #define BatteryLevelCharacteristicUUID BLEUUID((uint16_t)0x2a19)
 #define BatteryLevelDescriptorUUID     BLEUUID((uint16_t)0x2901)
@@ -135,6 +136,89 @@ Program dosyamıza gerekli sabit tanımlarını yapıyoruz:
 #define SensorCharacteristicUUID       "a62206b9-8cd9-4f02-ae53-1755928a54e2" //<--Sondaki sayı 2
 ```
 
+Hizmet ve diğer yapılar için değişkenler tanımlıyoruz. Bunları global olarak tanımlıyoruz:
+
+```c
+BLEServer *pServer;
+BLEService *pBatteryService, *pSensorService;
+BLECharacteristic *pBatteryLevelCharx, *pSensorValueCharx;
+BLEDescriptor BatteryLevelDescriptor(BatteryLevelDescriptorUUID);
+BLE2902 ble2902 = BLE2902(); //NOTIFY yöntemi tanımlayıcısı
+```
+
+Server'a bağlantı gerçekleştiğinde haberdar olmak için bir *Callback* sınıfı tanımlıyoruz. Bu sınıf ile bağlantı için istediğimiz hız parametrelerini de *Client* cihazına bildireceğiz. Bunu yapabilmek için bağlantının kurulmuş olması gerekli:
+
+```c
+class BaglantiCallback : public BLEServerCallbacks
+{
+  void onConnect(BLEServer* pServer, esp_ble_gatts_cb_param_t *param) {
+    deviceConnected = true;
+    Serial.print("Baglandi. ID: ");
+    Serial.print(param->connect.conn_id, DEC);
+    Serial.print(" client addr: ");
+    Serial.printf(ESP_BD_ADDR_STR
+      , (uint8_t)param->connect.remote_bda[0]
+      , (uint8_t)param->connect.remote_bda[1]
+      , (uint8_t)param->connect.remote_bda[2]
+      , (uint8_t)param->connect.remote_bda[3]
+      , (uint8_t)param->connect.remote_bda[4]
+      , (uint8_t)param->connect.remote_bda[5] );
+    Serial.println();
+        
+    pServer->updateConnParams(
+      param->connect.remote_bda,
+      10, 20, 0, 500
+    );
+    
+  }
+
+  void onDisconnect(BLEServer *pServer)
+  {
+    deviceConnected = false;
+    Serial.println("Disconnected.");
+  }
+};
+``` 
+
+Setup fonksiyonu içinde gerekli ayarları yapıyoruz. Hizmetleri ve alt bileşenlerini tanımlıyoruz:
+
+```c
+void setup() {
+ ...
+ ...
+ BLEDevice::init("BizimBLE"); //cihazın görünen adı
+ 
+ pServer = BLEDevice::createServer();
+
+ pServer->setCallbacks(new BaglantiCallback());
+ 
+ //Hizmet oluştur
+ pBatteryService = pServer->createService(BatteryServiceUUID);
+ pDengeService = pServer->createService(SensorServiceUUID);
+
+  //karakteristik özellikleri oluştur
+  pBatteryLevelCharx = pBatteryService->createCharacteristic(
+      BatteryLevelCharacteristicUUID,
+      BLECharacteristic::PROPERTY_READ);
+
+  pSensorValueCharx = pSensorService->createCharacteristic(
+      SensorCharacteristicUUID,
+      BLECharacteristic::PROPERTY_READ | BLECharacteristic::PROPERTY_NOTIFY);
+
+  //Tanımlayıcıyı ayarla
+  BatteryLevelDescriptor.setValue("Percentage 0 - 100");
+
+  //ve ekle
+  pBatteryLevelCharx->addDescriptor(&BatteryLevelDescriptor); // 2901
+  pSensorValueCharx->addDescriptor(&ble2902);                 //Notifications descriptor -- new BLE2902()
+
+  //Hizmetleri başlat
+  pBatteryService->start();
+  pSensorService->start();
+
+  //Sunucunun duyuru yapmasını sağla
+  pServer->getAdvertising()->start();
+```
 
 
 
