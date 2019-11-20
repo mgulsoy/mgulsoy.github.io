@@ -54,9 +54,7 @@ Bir karakteristik özellik (**GATT Characteristic**) tanımlayıcılar (**GATT D
 
 BLE sisteminde her yapının bir numarası olduğunu belirtmiştik. Bu numaralar standardın içinde tanımlanan yapılar için haliyle önceden tanımlanmıştır. Tasarımlarda bu önceden tanımlanan numaralar kullanıldığında uygulamalar otomatik olarak bu hizmet ve alt yapılarını görüp işlem yapar. Örneğin pil durumu hizmeti *(Battery Service)* standartta belirtildiği gibi tanımlandığında bağlanılan bütün cihaz, bilgisayar, mobil telefon gibi yapılar pil durumunu ek bir kodlama yapmadan gösterir.
 
-Numaralar UUID denen bir yapı ile ifade edilir. UUID çok büyük bir sayıdır. 16 byte (128 bit) genişliğe sahiptir. Şöyle gösterilir:
-
-`a62206b9-8cd9-4f02-ae53-1755928a54e1`
+Numaralar UUID denen bir yapı ile ifade edilir. UUID çok büyük bir sayıdır. 16 byte (128 bit) genişliğe sahiptir. Şöyle gösterilir: `a62206b9-8cd9-4f02-ae53-1755928a54e1`
 
 Bluetooth SIG tarafından yayınlanan önceden atanmış numaraların standart olması dolayısı ile numarayı oluşturan rakamların büyük bir kısmı aynıdır. Bu sebeple standart numaralar kısa formda gösterilir. Örneğin pil seviyesi karakteristik özelliğinin önceden tanımlanmış numarası **0x2A19** olup bu şekilde ifade edilir. Fakat bunu UUID formatında göstermek gerekirse, yani uzun haliyle ifade edilirse: 0000**2A19**-0000-1000-8000-00805F9B34FB olur. Örnekteki numaranın **2A19** olan kısa formu hariç diğer standart numaralar için geri kalan kısmı aynıdır. Yani numarası **0x180F** olan pil durumu hizmetinin UUID gösterimi 0000**180F**-0000-1000-8000-00805F9B34FB olacaktır.
 
