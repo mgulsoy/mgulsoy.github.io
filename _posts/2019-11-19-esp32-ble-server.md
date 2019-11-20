@@ -216,6 +216,9 @@ void setup() {
 
   //Sunucunun duyuru yapmasını sağla
   pServer->getAdvertising()->start();
+  ...
+  ...
+}
 ```
 
 Loop fonksiyonu içinde sistemin bilgi sağlayacağı kodları yazıyoruz:
@@ -239,6 +242,7 @@ void loop(){
   }
   
   delay(1000);
+}
 ```
 
 ## Sonuç
