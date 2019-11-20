@@ -13,9 +13,9 @@ Esp32 platformu, yapabildiklerine ve fiyatına bakıldığında oldukça avantaj
 
 Yapacağımız işlemler için geliştirme ortamı olarak aşağıdaki bileşenleri kullanacağız:
 
-* Visual Studio Code
-* VS Code üzerinde Platformio eklentisi
-* Platformio esp-arduino platformu
+* Visual Studio Code (Kurulumunu anlatmayacağım)
+* VS Code üzerinde Platformio eklentisi (Kurulumunu anlatmayacağım)
+* Platformio esp-arduino platformu (Kurulumunu anlatmayacağım)
 * Uyumlu bir esp32 geliştirme kartı
 
 ## Planlama
@@ -109,8 +109,33 @@ BLE sistemi sürekli bağlantı yapısında tasarlanmamıştır. Örneğin *Clie
   * **preferred slave latency** : Tercih edilen gecikme, yani kaybolduğunda tolere edilebilecek paket sayısı.
   * **preferred supervision timeout** : Tercih edilen zaman aşımı süresi. Bu süre dolduğunda cihaz bağlantısı kesilebilir. 6,25ms 'lik adımlar ile hesaplanır. Yani değer 100 ise süre **100 x 6,25ms = 625ms** olur.
 
-
-
 ## Kodlama
+
+Öncelikle kullanacağımız kütüphaneleri *platformio* eklentisine belirtiyoruz. Bunun için projemizdeki **platfomio.ini** dosyasına gerekli tanımı yapıyoruz:
+
+```lib_deps = ESP32 BLE Arduino```
+
+Kullanacağımız kütüphaneleri ekliyoruz:
+
+```
+#include <BLEDevice.h>
+#include <BLEUtils.h>
+#include <BLEServer.h>
+#include <BLEClient.h>
+#include <BLE2902.h>
+```
+
+Program dosyamıza gerekli sabit tanımlarını yapıyoruz:
+
+```
+#define BatteryServiceUUID             BLEUUID((uint16_t)0x180F)
+#define BatteryLevelCharacteristicUUID BLEUUID((uint16_t)0x2a19)
+#define BatteryLevelDescriptorUUID     BLEUUID((uint16_t)0x2901)
+#define SensorServiceUUID              "a62206b9-8cd9-4f02-ae53-1755928a54e1" //<--Sondaki sayı 1
+#define SensorCharacteristicUUID       "a62206b9-8cd9-4f02-ae53-1755928a54e2" //<--Sondaki sayı 2
+```
+
+
+
 
 ## Sonuç
