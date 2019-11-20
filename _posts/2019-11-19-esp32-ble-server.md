@@ -5,8 +5,6 @@ date: 2019-11-19
 tags: [esp32]
 ---
 
-# HENÜZ YAZILMAKTADIR. GÜNCELLENECEKTİR!
-
 Esp32 platformu, yapabildiklerine ve fiyatına bakıldığında oldukça avantajlı bir platform. Bu yazımıda fazla detaya girmeden bir çevre birimi (Peripheral) ya da başka bir deyişle bir **BLE SERVER** sistemi yapımını anlatalım:
 
 ## Geliştirme Ortamı
@@ -118,7 +116,7 @@ BLE sistemi sürekli bağlantı yapısında tasarlanmamıştır. Örneğin *Clie
 
 Kullanacağımız kütüphaneleri ekliyoruz:
 
-```c
+```cpp
 #include <BLEDevice.h>
 #include <BLEUtils.h>
 #include <BLEServer.h>
@@ -128,7 +126,7 @@ Kullanacağımız kütüphaneleri ekliyoruz:
 
 Program dosyamıza gerekli sabit tanımlarını yapıyoruz:
 
-```c
+```cpp
 #define BatteryServiceUUID             BLEUUID((uint16_t)0x180F)
 #define BatteryLevelCharacteristicUUID BLEUUID((uint16_t)0x2a19)
 #define BatteryLevelDescriptorUUID     BLEUUID((uint16_t)0x2901)
@@ -138,7 +136,7 @@ Program dosyamıza gerekli sabit tanımlarını yapıyoruz:
 
 Hizmet ve diğer yapılar için değişkenler tanımlıyoruz. Bunları global olarak tanımlıyoruz:
 
-```c
+```cpp
 BLEServer *pServer;
 BLEService *pBatteryService, *pSensorService;
 BLECharacteristic *pBatteryLevelCharx, *pSensorValueCharx;
@@ -148,11 +146,11 @@ BLE2902 ble2902 = BLE2902(); //NOTIFY yöntemi tanımlayıcısı
 
 Server'a bağlantı gerçekleştiğinde haberdar olmak için bir *Callback* sınıfı tanımlıyoruz. Bu sınıf ile bağlantı için istediğimiz hız parametrelerini de *Client* cihazına bildireceğiz. Bunu yapabilmek için bağlantının kurulmuş olması gerekli:
 
-```c
+```cpp
 class BaglantiCallback : public BLEServerCallbacks
 {
   void onConnect(BLEServer* pServer, esp_ble_gatts_cb_param_t *param) {
-    deviceConnected = true;
+    
     Serial.print("Baglandi. ID: ");
     Serial.print(param->connect.conn_id, DEC);
     Serial.print(" client addr: ");
@@ -165,7 +163,7 @@ class BaglantiCallback : public BLEServerCallbacks
       , (uint8_t)param->connect.remote_bda[5] );
     Serial.println();
         
-    pServer->updateConnParams(
+    pServer->updateConnParams(  //Bağlantı parametrelerini ayarlıyoruz. BKZ: "Dikkat Edilmesi Gereken Noktalar"
       param->connect.remote_bda,
       10, 20, 0, 500
     );
@@ -182,7 +180,7 @@ class BaglantiCallback : public BLEServerCallbacks
 
 Setup fonksiyonu içinde gerekli ayarları yapıyoruz. Hizmetleri ve alt bileşenlerini tanımlıyoruz:
 
-```c
+```cpp
 void setup() {
  ...
  ...
@@ -220,6 +218,29 @@ void setup() {
   pServer->getAdvertising()->start();
 ```
 
+Loop fonksiyonu içinde sistemin bilgi sağlayacağı kodları yazıyoruz:
 
+```cpp
+void loop(){
+  ...
+  ...
+  int pil_seviyesi_adc = analogRead(pil_olcum_pini);
+  uint8_t pil_seviyesi = map (pil_seviyesi_adc, 0, 4096, 0, 100);
+  pBatteryLevelCharx->setValue(&pil_seviyesi, 1); //sadece READ işlemi yapılacak
+  
+  if( digitalRead(sensor_pin) == HIGH ) {
+    pSensorValueCharx->setValue("Acik");
+  } else {
+    pSensorValueCharx->setValue("Kapali");
+  }
+  
+  if (ble2902.getNotifications() == true) {
+    pSensorValueCharx->notify(); //Bildir!
+  }
+  
+  delay(1000);
+```
 
 ## Sonuç
+
+Bir esp32 geliştirme kartı üzerinde basit bir sensör yapısı kurup bunu çalışır hale getirdik. Bu işlem esnasında bağlantı hızı ile ilgili düzenlemeler yaptık. Burada sistemin veri aktarım hızını da bir miktar arttırmış olduk.
