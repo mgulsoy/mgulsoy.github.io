@@ -5,7 +5,7 @@ date: 2019-11-19
 tags: [esp32]
 ---
 
-Esp32 platformu, yapabildiklerine ve fiyatına bakıldığında oldukça avantajlı bir platform. Bu yazımıda fazla detaya girmeden bir çevre birimi (Peripheral) ya da başka bir deyişle bir **BLE SERVER** sistemi yapımını anlatalım:
+Esp32 platformu, yapabildiklerine ve fiyatına bakıldığında oldukça avantajlı bir platform. Bu yazıda da fazla detaya girmeden bir çevre birimi (Peripheral) ya da başka bir deyişle bir **BLE SERVER** sistemi yapımını anlatalım:
 
 ## Geliştirme Ortamı
 
@@ -35,7 +35,7 @@ Bluetooth Low Energy (BLE) ya da Bluetooth 4, Bluetooth SIG tarafından standart
 * **GATT** (Generic ATTribute) : Cihazların birbirlerine bağlanması için bu yapı kullanılır.
 
 **BLE standardı temel olarak şu rolleri tanımlar:**
-* **GATT Client**: Genellikle *MASTER* veya *CENTRAL* olarak da bilinir. Bütün işi idare eden taraftır. Mesela bir Bluetooth kalp sensörüne bağlanan cep telefonu bu roldedir.
+* **GATT Client**: Genellikle *MASTER* veya *CENTRAL* olarak da bilinir. Bütün işi idare eden taraftır. Mesela bir bluetooth kalp sensörüne bağlanan cep telefonu bu roldedir.
 * **GATT Server**: Genellikle *SLAVE* veya *PERIPHERAL* olarak da bilinir. İdare edilen taraftır. Genelde pasiftir. Mesela bir bluetooth kalp sensörü bu roldedir.
 
 **GATT Server** sunacak olduğu hizmetleri standartta tanımlandığı gibi listelemelidir. Bunu hizmet (**GATT Service**) tanımlayarak yapar. Her bir hizmetin tabiki bir adı yoktur. Hizmetlerin birer *numarası* vardır. Bu numara UUID olarak bilinir. Bluetooth SIG bir dizi standart hizmet (**GATT Service**) tanımlamıştır. Bu hizmetlerin birer standart numarası bulunur. 
@@ -48,7 +48,7 @@ Bir karakteristik özellik (**GATT Characteristic**) tanımlayıcılar (**GATT D
 * **NOTIFY** : **GATT Client** bu karakteristik özelliği sürekli olarak dinler. **GATT Server** bu karakteristik özelliği gerektiği her zaman günceller ve karşı tarafı bilgilendirir. **GATT Client** bilgilendiği zaman hiç sesini çıkarmaz. Yani **GATT Server** tarafına mesajın ulaştığı bilgisini vermez. Bu sebeple hızlıdır(!)
 * **INFORM** : **GATT Client** bu karakteristik özelliği *NOTIFY* tanımında olduğu gibi dinler fakat bu mesajı aldığında **GATT Server** tarafına mesajı almış olduğu bilgisini verir. Bu sebeple *NOTIFY* tanımından yavaştır(!)
 
-**(!)** Hızlıdır çünkü mesajı alan taraf geriye mesajın ulaştığına bağlı olarak bilgi dönmez.
+**(!)** Hızlıdır çünkü mesajı alan taraf geriye mesajın ulaştığına bağlı olarak bilgi dönmez (ACKnowledge).
 
 ### Numaralar (Assigned Number, UUID)
 
