@@ -156,10 +156,10 @@ server {
 ```
 
 Ayarlar içinde dikkat edilmesi gereken parametreler şunlardır:
-* **root /usr/share/redmine/public;** : Redmine kurulumunun yolu
-* **passenger_enabled on;** : Passenger modülü aktif
-* **passenger_user www-data;** : Varsayılan olarak *nginx* sistem kullanıcısı olarak *www-data* kullanır. Bunu ayarlamazsak passenger *nobody* ile oturumu başlatacak ve erişim sıkıntısı ortaya çıkacaktır.
-* **client_max_body_size    10m;** : Bu direktif ile upload edilecek maksimum dosya boyutu belirlenir. Bu ayarda 10 MB'tır.
+* `root /usr/share/redmine/public;` : Redmine kurulumunun yolu
+* `passenger_enabled on;` : Passenger modülü aktif
+* `passenger_user www-data;` : Varsayılan olarak *nginx* sistem kullanıcısı olarak *www-data* kullanır. Bunu ayarlamazsak passenger *nobody* ile oturumu başlatacak ve erişim sıkıntısı ortaya çıkacaktır.
+* `client_max_body_size    10m;` : Bu direktif ile upload edilecek maksimum dosya boyutu belirlenir. Bu ayarda 10 MB'tır.
 
 ## Sonuç
 
