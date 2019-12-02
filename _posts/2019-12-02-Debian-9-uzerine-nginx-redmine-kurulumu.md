@@ -66,6 +66,8 @@ root@debian-s-9:~# apt-get -y install libnginx-mod-http-passenger
 
 İşlemi yaptıktan sonra `/usr/share/nginx/modules-available/`klasörünün içine baktığımızda `mod-http-passenger.load` modülünü görmeliyiz. Sonrasında Redmine yapılandırmasına geçebiliriz:
 
+## Kurulum
+
 * Veritabanı İşlemleri: Redmine tarafından kullanılacak olan veritabanını oluşturuyoruz, önce postgresql cli arabirimini kullanıyoruz:
 
 ```bash
@@ -97,6 +99,76 @@ production:
   encoding: utf8
 ```
 
+Dosya içeriği **yaml** formatındadır. Bu sebeple ayar girdilerinin başındaki boşluklara dikkat etmek şart. Bizim konfigrasyonumuzda 2 adet boşluk bulunmakta. **TAB** yada başka boşluk **vermemelisiniz!**
 
+Dosya içeriğini belirledikten sonra `CTRL+O` ve ardından `CTRL+X` tuşlarına basarak kaydedip dosyayı kapatırız.
+
+### Paket Bağımlılıkları
+
+* Bundler
+```bash
+root@debian-s-9:~# cd /usr/share/redmine
+root@debian-s-9:~# gem install bundler
+...
+```
+
+**NOT: Benim yüklediğim paket bundler aracının 1.9 sürümünü gerektiriyordu. Yukarıdaki komut en son sürümünü yükleyecektir. Aşağıdaki komutları çalıştırırken bundler versiyonu ile ilgili bir hata alırsanız `gem install bundler --version 1.9` komutu ile 1.9 sürümünü yükleyin!**
+
+* Bundle paketleri
+```bash
+root@debian-s-9:~# cd /usr/share/redmine
+root@debian-s-9:~# bundle install
+...
+root@debian-s-9:~# bundle exec rake db:migrate
+...
+root@debian-s-9:~# bundle exec rake redmine:load_default_data
+...
+```
+
+Bu aşamada redmine kurulumu tamamlandı. Fakat henüz sunamıyoruz. Sunum yapabilmek için **nginx** gerekli ayarları yapmalıyız. Önce bir site dosyası oluşturuyoruz:
+
+```bash
+root@debian-s-9:~# cd /etc/nginx/sites-available/
+root@debian-s-9:~# touch redmine.bizimsiteadresi.com
+...
+root@debian-s-9:~# nano redmine.bizimsiteadresi.com
+```
+
+Dosya içeriği şu şekilde olabilir:
+
+```
+server {
+        listen 80;
+        listen [::]:80;
+
+        server_name redmine.bizimsiteadresi.com;
+
+        access_log /var/log/nginx/redmine.bizimsiteadresi.com.access.log;
+
+        root /usr/share/redmine/public;
+        passenger_enabled on;
+        passenger_user www-data;
+        error_page 404 /404.html;
+        error_page 500 /500.html;
+
+        client_max_body_size    10m;
+}
+```
+
+Ayarlar içinde dikkat edilmesi gereken parametreler şunlardır:
+* **root /usr/share/redmine/public;** : Redmine kurulumunun yolu
+* **passenger_enabled on;** : Passenger modülü aktif
+* **passenger_user www-data;** : Varsayılan olarak *nginx* sistem kullanıcısı olarak *www-data* kullanır. Bunu ayarlamazsak passenger *nobody* ile oturumu başlatacak ve erişim sıkıntısı ortaya çıkacaktır.
+* **client_max_body_size    10m;** : Bu direktif ile upload edilecek maksimum dosya boyutu belirlenir. Bu ayarda 10 MB'tır.
+
+## Sonuç
+
+Şimdi *nginx* hizmetini yeniden başlatarak *redmine* sistemini kullanmaya başlayabiliriz.
+
+```bash
+root@debian-s-9:~# service nginx restart
+```
+
+Browser'dan sitemizi açıp kullanmaya başlayabiliriz.
 
 
