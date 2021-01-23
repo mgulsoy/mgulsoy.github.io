@@ -31,3 +31,6 @@ Node.js uygulamasını Windows 10 bilgisayarımıza kurduğumuzda **Node.js Comm
 
 Bu komutu çalıştırdığımızda sistemimize **Vue.Cli** paketi yüklenecektir. Bu işlem internet bağlantısı hızına göre biraz zaman alabilir.
 
+![İşlem tamamlandı](/assets/vuejs-ile-komponent-tasarimi/vuecli_install_finish.jpg "İşlem tamamlandı")
+
+Bu resimdeki gibi bir sonuç gördüğünüzde **Vue.Cli** yüklenmiş demektir.
