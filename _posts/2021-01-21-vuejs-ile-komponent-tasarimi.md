@@ -73,7 +73,7 @@ Komutun çıktısı şu şekilde olacaktır:
 
 ## Tasarım ve Kodlama
 
-Önce yeni komponentimizi projemize ekleriz. Bunun için **Visual Studio Code** penceresinin solunda bulunan **Explorer** tabında `/src/components` klasörüne sağ tıklarız ve **New File** komutu ile yeni bir dosya oluştururuz. Dosyanın adını **YeniKomponent.vue** olarak veririz.
+Önce yeni komponentimizi projemize ekleriz. Bunun için **Visual Studio Code** penceresinin solunda bulunan **Explorer** sekmesinde `/src/components` klasörüne sağ tıklarız ve **New File** komutu ile yeni bir dosya oluştururuz. Dosyanın adını **YeniKomponent.vue** olarak veririz.
 
 ![Yeni komponent oluştur](/assets/vuejs-ile-komponent-tasarimi/yeni-komponent-olustur.jpg "Yeni komponent oluştur.")
 
@@ -143,6 +143,65 @@ export default {
 }
 </style>
 ```
+
+Bu aşamada bütün dosyaları kaydedip browser penceremizi yenilediğimizde komponentimizi çalışır halde görebileceğiz.
+
+![Çalışan komponent](/assets/vuejs-ile-komponent-tasarimi/run-komponent.gif "Çalışan komponent")
+
+## Paketleme
+
+Şimdiye kadar yaptıklarımız ile komponentimizi oluşturduk ve çalıştırdık. Çalıştığını gözlemledik. Şimdi ise komponentimizi paketleyip browser ile kullanılabilir hale getireceğiz. Bunun için projemize bir javascript dosyası ekleyeceğiz. Bu dosyanın görevi paketleme olacak ve browser'a yüklenen kodu `window` global nesnesine bağlayacak. Bu sayede browser üzerinde kullanabileceğiz.
+
+#### Paketleyici Dosyası
+
+Önce `/src` klasörüne sağ tıklayarak `paketleyici.js` adlı bir dosya ekleyin. Sonra dosyanın içine şu kodları ekleyin:
+
+```javascript
+import YeniKomponent from './components/YeniKomponent.vue';
+
+export default YeniKomponent
+    if (typeof window !== 'undefined' && window.Vue) {
+        window.YeniKomponent = YeniKomponent;
+    } else {
+        console.warn('Yeni komponent yüklenemedi. Vue veya window yok!');
+    }
+```
+
+Dosyayı kaydetmeyi unutmayın. 
+
+#### Paketleme Komutu
+
+Şimdi paketleme için gerekli komutu `package.json` dosyasına ekleyeceğiz. **Explorer** sekmesinde dosyayı bulduğumuzda çift tıklayıp düzenlemek için açarız. Paketleme komutunu:
+
+```"paketle": "vue-cli-service build --target lib --name YeniKomponent ./src/paketleyici.js",```
+
+Dosyanın içine ekleriz. Ekledikten sonra `package.json` dosyasının ilgili kısmı şöyle görülmelidir:
+
+![Paketleme komutu](/assets/vuejs-ile-komponent-tasarimi/vue-paket.jpg "Paketleme Komutu")
+
+
+#### Paketleme
+
+Basitçe paketleme komutunu çalıştırırız: `npm run paketle`
+
+![Paketleme Komutu Çıktısı](../assets/vuejs-ile-komponent-tasarimi/paketleme-komutu.jpg "Paketleme Komutu Çıktısı")
+
+Artık elimizde paketlenmiş halde komponentimiz bulunmakta. Çıktıda dikkat edeceğiniz gibi projemizin ana klasöründe `dist` adlı bir klasör oluşmuş ve paketlenmiş olan komponentimizin dosyaları bunun içine eklenmiştir.
+
+Komponentimizi browser ile kullanabilemiz için şunlara dikkat etmemiz gerekli:
+
+* Sayfanın başında komponentimizin stillerini yükleriz: `<link rel="stylesheet" href="./YeniKomponent.css">`
+* Önce **Vue.js** kütüphanesini ekleriz.
+* Sonrasında komponentimizin paketini ekleriz:  `<script src="./YeniKomponent.umd.min.js"></script>`
+* Oluşturduğumuz **Vue.js** App yapısına komponentimizi bağlarız:
+```javascipt
+var app = Vue.createApp( { /* ... vue uygulaması kodu ... */ } );
+app.component('yeni-komponent', window.YeniKomponent);
+//......
+```
+* Uygulamamız içinde artık `<yeni-komponent></yeni-komponent>` etiketi ile kullanabiliriz.
+
+
 
 
 
