@@ -193,7 +193,7 @@ Komponentimizi browser ile kullanabilemiz için şunlara dikkat etmemiz gerekli:
 * Sonrasında komponentimizin paketini ekleriz:  `<script src="./YeniKomponent.umd.min.js"></script>`
 * Oluşturduğumuz **Vue.js** App yapısına komponentimizi bağlarız:
 
-```javascipt
+```javascript
 var app = Vue.createApp( { /* ... vue uygulaması kodu ... */ } );
 app.component('yeni-komponent', window.YeniKomponent);
 //......
