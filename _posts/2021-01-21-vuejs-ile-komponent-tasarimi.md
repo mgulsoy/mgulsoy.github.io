@@ -31,7 +31,7 @@ Node.js uygulamasını Windows 10 bilgisayarımıza kurduğumuzda **Node.js Comm
 
 Bu komutu çalıştırdığımızda sistemimize **Vue.Cli** paketi yüklenecektir. Bu işlem internet bağlantısı hızına göre biraz zaman alabilir.
 
-![İşlem tamamlandı](../assets/vuejs-ile-komponent-tasarimi/vuecli_install_finish.jpg "İşlem tamamlandı")
+![İşlem tamamlandı](/assets/vuejs-ile-komponent-tasarimi/vuecli_install_finish.jpg "İşlem tamamlandı")
 
 Bu resimdeki gibi bir sonuç gördüğünüzde **Vue.Cli** yüklenmiş demektir.
 
@@ -41,11 +41,11 @@ Bu resimdeki gibi bir sonuç gördüğünüzde **Vue.Cli** yüklenmiş demektir.
 
 Komutu verdikten sonra araç bizden hangi vue versiyonunu kullanacağımızı soracak. Burada vue 3 seçiyoruz.
 
-![Vue version seçimi](../assets/vuejs-ile-komponent-tasarimi/select_vue_version.jpg "Vue version seçimi")
+![Vue version seçimi](/assets/vuejs-ile-komponent-tasarimi/select_vue_version.jpg "Vue version seçimi")
 
 Version seçimi yaptıktan sonra araç bağımlılıkları ve diğer paketler **Vue.Cli** tarafından yüklenir ve örnek kod olutşturulur. Burada işlem bitene kadar beklemek gerekli.
 
-![Yükleme tamamlandı](../assets/vuejs-ile-komponent-tasarimi/cli_init_complete.jpg "Yükleme tamamlandı")
+![Yükleme tamamlandı](/assets/vuejs-ile-komponent-tasarimi/cli_init_complete.jpg "Yükleme tamamlandı")
 
 Yükleme tamamlandıktan sonra yukarıdaki resimdeki gibi bir çıktı göreceğiz. Bu aşamada artık kodların bulunduğu dizine gidip projeyi çalıştırmamız yeterli olacak. Şu komutları veririz:
 
@@ -57,13 +57,13 @@ Projeyi bu haliyle çalıştırabiliriz. Çalıştırmak için:
 
 Komutun çıktısı şu şekilde olacaktır:
 
-![Serve komutu çıktısı](../assets/vuejs-ile-komponent-tasarimi/serve-vue-cli.jpg "Serve komutu çıktısı")
+![Serve komutu çıktısı](/assets/vuejs-ile-komponent-tasarimi/serve-vue-cli.jpg "Serve komutu çıktısı")
 
 **serve** komutu projemizi yerel bir sunucuda sunmaya başlar fakat browser açarak sayfayı bize göstermez. Bunun için çıktı ekranındaki adreslerden birini kopyalayıp browser penceresine yapıştırarak sonucu görürüz.
 
-![Yeni komponent](../assets/vuejs-ile-komponent-tasarimi/yeni-komponent_hello.png "Yeni komponent projesi ilk görünümü.")
+![Yeni komponent](/assets/vuejs-ile-komponent-tasarimi/yeni-komponent_hello.png "Yeni komponent projesi ilk görünümü.")
 
 **serve** komutu aktifken, yani sunucu çalışıyorken dosyalar üzerinde değişiklik yapabilir, sonucunu da direkt olarak browser penceresinde görebiliriz. Projemiz üzerinde çalışmak için **Visual Studio Code** uygulamasını kullanabiliriz. **Visual Studio Code** uygulamasını açtıktan sonra **Open Folder** *(Klasör Aç)* seçeneğini seçip projemizin içinde olduğu klasörü açarız. Soldaki dosya menüsünü genişlettiğimizde şöyle bir görüntü görürüz:
 
-![VSCode ilk ekran](../assets/vuejs-ile-komponent-tasarimi/vscode_ilk_ekran.jpg "VSCode İlk Ekran")
+![VSCode ilk ekran](/assets/vuejs-ile-komponent-tasarimi/vscode_ilk_ekran.jpg "VSCode İlk Ekran")
 
