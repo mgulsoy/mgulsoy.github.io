@@ -88,7 +88,7 @@ Oluşturduğumuz dosyanın içini dolduralım. Bir **Vue.js** komponenti 3 ana k
 
 Kodumuzu bu yapıya göre oluştururuz:
 
-`` 
+```vue 
   <template>
     <div><button v-on:click="tiklamaSayisi++">Tıkla</button><span class="etiket">Tıklama sayısı: {{tiklamaSayisi}}</span></div>
   </template>
@@ -108,13 +108,13 @@ Kodumuzu bu yapıya göre oluştururuz:
       margin-right: 3px;
     }
   </style>
-``
+```
 
 Basitçe açıklamak gerekirse komponentimizin `tiklanmaSayisi` adlı bir veri girdisi bulunur. Butona eklediğimiz `v-on:click="tiklamaSayisi++"` kodu ile vue çekirdeğine ilgili değişkenin sayısını 1 arttır deriz. `<span class="etiket">Tıklama sayısı: {{tiklamaSayisi}}</span>` ile de değişkenin değerini gösteririz.
 
 Dosyaya komponent kodunu ekledikten sonra kaydediyoruz. Şimdi oluşturduğumuz komponenti browser üzerinde çalıştıracağız. Bunu yapmak için `/src/App.vue` dosyasını açarız. Dosya içinde bulunan **HelloWorld** referanslarını kaldırırız. Çünkü o komponenti değil kendi komponentimizi kullanacağız. Kaldırma işlemini yaptıktan sonra **App.vue** dosyası şöyle görünecek:
 
-``
+```vue
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
   <p>Yeni Komponenti aşağıda göreceğiz:</p>
@@ -142,7 +142,7 @@ export default {
   margin-top: 60px;
 }
 </style>
-``
+```
 
 
 
