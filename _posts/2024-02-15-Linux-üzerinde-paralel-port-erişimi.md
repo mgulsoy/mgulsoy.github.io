@@ -213,4 +213,19 @@ int read_status_pins(int fd) {
 
 Pinlerden okuma yazma yapılırken pinlerin akımlarına dikkat edilmelidir. Zira pinler çok yüksek akımları sağlayamayabilir. Ne kadar akım sağlayabileceği ise donanım üreticisi tarafından belirlenir. Pinler giriş konfigürasyonu olarak ayarlandığında tri-state veya HIGH-Z olarak bulunmayıp pull-up olarak da çalışıyor olabilir.
 
-
+Kaynaklar:
+> [OpensourceForU](https://www.opensourceforu.com/2015/06/using-parallel-ports-to-control-devices/)
+> 
+> [Linux Kernel Docs, Parport](https://www.kernel.org/doc/html/latest/admin-guide/parport.html)
+>
+> [Linux Kernel Docs, Parport, low level](https://www.kernel.org/doc/html/latest/driver-api/parport-lowlevel.html)
+>
+> [How to control peripheral ports: Accessing and writing on Parallel Port with C on Linux. Part I](https://www.howtoforge.com/tutorial/accessing-parallel-ports-on-linux)
+>
+> [Linux Parport programming](https://dominic.familie-radermacher.ch/computer/linux/programming/parport.html)
+>
+> [The Linux 2.4 Parallel Port Subsystem](http://www.linuxfocus.org/common/src/article205/ppdev.html)
+>
+> [alibaba LVS Source, github](https://github.com/alibaba/LVS/blob/master/kernel/include/linux/parport.h)
+>
+> [Linux source, github](https://github.com/torvalds/linux/blob/master/drivers/char/ppdev.c)
