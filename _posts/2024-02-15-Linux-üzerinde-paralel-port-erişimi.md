@@ -126,5 +126,15 @@ int strobe_blink(int fd) {
 }
 ```
 
+Bu fonksiyon ile strobe (1) pinini yarım saniyelik sinyaller üretmek üzere kullanmış olduk. Programı derlemek için `gcc -o pport main.c` komutunu kullanabiliriz. Bu bize `pport` adlı bir çalıştırılabilir dosya üretecektir. Bu dosyayı `sudo` ile çağrılmalı veya `CAP_SYS_RAWIO` ile yetkilendirilmelidir. Zira direkt olara donanım erişimi söz konusu.
+
+## Diğer Kontroller
+
+Aşağıdaki fonksiyonları da kullarak başka kontrolleri de sağlayabiliriz.
+
+### Data Pinlerine Yazma (Çıkış)
+
+
+
 
 
