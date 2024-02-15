@@ -134,7 +134,83 @@ Aşağıdaki fonksiyonları da kullarak başka kontrolleri de sağlayabiliriz.
 
 ### Data Pinlerine Yazma (Çıkış)
 
+Bu fonksiyon argümanlarından `data` 8 bitlik bir tip olduğundan her bir bit, bir data bus pinine karşılık gelir.
 
+```C
+int write_data_pins(int fd, unsigned char data) {
+  return (ioctl(fd, PPWDATA, &data));
+}
+```
 
+### Data Pinlerinden Okuma (Giriş)
+
+```C
+int read_data_pins(int fd) {
+  unsigned char data;
+
+  int mod = IEEE1284_MODE_ECP;  // port profilini ECP olarak değiştir
+  int res = ioctl(fd,PPSETMODE,&mod);
+
+  if(res < 0){
+    // Profil belirlenirken hata:
+    perror("PPSETMODE");
+    return res;
+  }
+
+  // Profil belirleme başarılı
+  // Port yönü giriş yapılır.
+  res = ioctl(fd, PPDATADIR, &mod);
+  if(res < 0){
+    // Port giriş yapılırken hata:
+    perror("PPDATADIR");
+    return res;
+  }
+
+  // birkaç saniye beklenir, bu sürede elle bir giriş sinyali üretilebilir.
+  sleep(10);
+
+  // veri porttan okunur:
+  res = ioctl(fd, PPRDATA, &data);
+  if(res < 0){
+    // Port giriş okunurken hata:
+    perror("PPRDATA");
+    return res;
+  }
+
+  // data değişkeni içinde port data pinleri verisi bulunur.
+  return (int)data;
+}
+```
+
+### Durum Pinlerinden Okuma
+
+```C
+int read_status_pins(int fd) {
+
+  int val;
+  int res = ioctl(fd, PPRSTATUS, &val);
+  if(res < 0){
+    // Profil belirlenirken hata:
+    perror("PPRSTATUS");
+    return res;
+  }
+
+  val ^= PARPORT_STATUS_BUSY;   // busy pini değeri ters çevrilmelidir.
+
+  printf("/BUSY  = %s\n",
+		((val & PARPORT_STATUS_BUSY)==PARPORT_STATUS_BUSY)?"HI":"LO");
+	printf("ERROR  = %s\n",
+		((val & PARPORT_STATUS_ERROR)==PARPORT_STATUS_ERROR)?"HI":"LO");
+	printf("SELECT = %s\n",
+		((val & PARPORT_STATUS_SELECT)==PARPORT_STATUS_SELECT)?"HI":"LO");
+	printf("PAPEROUT = %s\n",
+		((val & PARPORT_STATUS_PAPEROUT)==PARPORT_STATUS_PAPEROUT)?"HI":"LO");
+	printf("ACK = %s\n",
+		((val & PARPORT_STATUS_ACK)==PARPORT_STATUS_ACK)?"HI":"LO");
+	return 0;
+}
+```
+
+Pinlerden okuma yazma yapılırken pinlerin akımlarına dikkat edilmelidir. Zira pinler çok yüksek akımları sağlayamayabilir. Ne kadar akım sağlayabileceği ise donanım üreticisi tarafından belirlenir. Pinler giriş konfigürasyonu olarak ayarlandığında tri-state veya HIGH-Z olarak bulunmayıp pull-up olarak da çalışıyor olabilir.
 
 
