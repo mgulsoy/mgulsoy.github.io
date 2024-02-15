@@ -5,10 +5,9 @@ date: 2024-02-15
 tags: [linux]
 ---
 
-Lisedeyken bilgisayar kullanmaya başladığımda en çok etkilendiğim kısım paralel port olmuştu. Buraya başka bir şeyler bağlayıp programlama yaparak bir otomasyon sistemi yapmayı hayal ederdim. Şimdi basit bir şekilde Ubuntu 
-işletim sistemi kullanarak paralel port pinlerini kontrol etmeye çalışalım.
+Lisedeyken bilgisayar kullanmaya başladığımda en çok etkilendiğim kısım paralel port olmuştu. Buraya başka bir şeyler bağlayıp programlama yaparak bir otomasyon sistemi yapmayı hayal ederdim. Şimdi basit bir şekilde Ubuntu işletim sistemi kullanarak paralel port pinlerini kontrol etmeye çalışalım.
 
-Paralel port aslında eski bir teknoloji. Güncel sistemlerin pek çoğunda aslında bulunmuyor bile. Tarihi eser sayılabilecek yazıcıları kontrol etmek için kullanılıyor. Fakat bazı uygulamalarda gerçekten işe yarıyor.
+Paralel port aslında eski bir teknoloji. Güncel sistemlerin pek çoğunda aslında bulunmuyor bile. Tarihi eser sayılabilecek yazıcıları kontrol etmek için kullanılıyor. Fakat bazı uygulamalarda gerçekten işe yarıyor. Bu yazıdaki işlemleri yapabilmek için temek C programlama bilgisine ihtiyaç bulunmaktadır. 
 
 <div align="center">
 <img src="/assets/paralel-port-kontrolü/1200px-Parallel_computer_printer_port.jpg" width="350" >
@@ -22,14 +21,14 @@ Port pin tanımları ve fonksiyonları şöyledir:
 | Pin | Sinyal | Yön |
 | --- | --- | --- |
 | 1 | Strobe (Active Low) | I/O |
-| 2 | DATA 0              | SPP(O) , ECP(I) |
-| 3 | DATA 1              | SPP(O) , ECP(I) |
-| 4 | DATA 2              | SPP(O) , ECP(I) |
-| 5 | DATA 3              | SPP(O) , ECP(I) |
-| 6 | DATA 4              | SPP(O) , ECP(I) |
-| 7 | DATA 5              | SPP(O) , ECP(I) |
-| 8 | DATA 6              | SPP(O) , ECP(I) |
-| 9 | DATA 7              | SPP(O) , ECP(I) |
+| 2 | DATA 0              | SPP(O) , ECP(I/O) |
+| 3 | DATA 1              | SPP(O) , ECP(I/O) |
+| 4 | DATA 2              | SPP(O) , ECP(I/O) |
+| 5 | DATA 3              | SPP(O) , ECP(I/O) |
+| 6 | DATA 4              | SPP(O) , ECP(I/O) |
+| 7 | DATA 5              | SPP(O) , ECP(I/O) |
+| 8 | DATA 6              | SPP(O) , ECP(I/O) |
+| 9 | DATA 7              | SPP(O) , ECP(I/O) |
 | 10 | ACK               | I |
 | 11 | BUSY              | I |
 | 12 | PAPER OUT         | I |
@@ -44,6 +43,12 @@ Paralel port çalışma yöntemleri profil olarak tanımlanır. Bunları şöyle
 * SPP: Standart Parallel Port
 * EPP: Enhanced Parallel Port (Geliştirilmiş paralel port)
 * ECP: Extended Capabilities Port (Yetenekleri arttırılmış port)
+
+Bu bilgiye göre pinlerin yönleri şöyle ifade edilebilir: 
+* SPP(O) : Eğer port SPP profiline göre ayarlanmışsa pin sadece çıkış (OUTPUT/source) yönünde çalışır.
+* ECP(I/O) : Eğer port ECP profiline göre ayarlanmışsa pin hem çıkış (OUTPUT/source) hem de giriş(INPUT/sink) yönünde çalışabilir.
+* I : Pin sadece giriş(INPUT/sink) yönünde çalışabilir.
+* I/O : Pin hem çıkış (OUTPUT/source) hem de giriş(INPUT/sink) yönünde çalışabilir.
 
 ## Hazırlık
 
@@ -80,9 +85,46 @@ int main(int argc, char **argv) {
     return 5; // Uygulamadan çık
   }
 
+  // Port aygıtına erişim tamam şimdi tekelimize alacağız:
+  int res = ioctl(fd,PPCLAIM); // ioctl ile PPCLAIM komutunu çalıştır.
+  if(res < 0) {
+    // Komut başarısız.
+    perror("PPCLAIM");
+    close(fd); // dosyayı kapat.
+    return 5; // uygulamadan çık.
+  }
+
+  // Komut başarılı. Şimdi strobe pininden sinyal verecceğiz:
+  strobe_blink(fd);
+
+  // Kontrol işlemlerimiz tamamlandığında portu serbest bırakacağız ve dosyayı kapatacağız.
+  ioctl(fd, PPRELEASE); // hata olsa da ilgilenmiyoruz.
+  close(fd);
   
+  return 0;
 }
-``` 
+```
+
+Bu kodu `main.c` adı ile kaydedebiliriz. Temel olarak yaptığımız şey portu açmak, _PPCLAIM_ komutu ile sahipliğini almak, I/O işlemi yapmak. _PPRELEASE_ komutu ile serbest bırakmak ve kapatmak. Şimdi `strobe_blink(fd)` çağrımına bakalım:
+
+```C
+int strobe_blink(int fd) {
+
+  struct ppdev_frob_struct frob; // bir frob yapısı tanımla
+  frob.mask = PARPORT_CONTROL_STROBE; // Bit maskesi belirle, hangi kontrol pinini kumanda edeceğimizi belirler.
+  for(int i = 0; i < 30; i++) {
+    // Strobe pinini aktif yap! ( dikkat: pin ters mantık çalışır )
+    frob.val = 0xFF;
+    ioctl(fd, PPFCONTROL, &frob);
+    usleep(500000); // 500ms bekle
+
+    // pasif yap
+    frob.val = 0x00;
+    ioctl(fd, PPFCONTROL, &frob);
+    usleep(500000); // 500ms bekle
+  }
+}
+```
 
 
 
