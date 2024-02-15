@@ -229,3 +229,5 @@ Kaynaklar:
 > [alibaba LVS Source, github](https://github.com/alibaba/LVS/blob/master/kernel/include/linux/parport.h)
 >
 > [Linux source, github](https://github.com/torvalds/linux/blob/master/drivers/char/ppdev.c)
+>
+> [Writing a parport device driver, tldp.org](https://tldp.org/LDP/khg/HyperNews/get/devices/parport.html)
